@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import { createLogger } from "@liplum/log";
-import { UserModel, UserPO } from "./model.js";
+import { toVO, UserCreateReq, UserModel } from "./model.js";
 
 export const log = createLogger();
 export const app: express.Express = express();
@@ -15,10 +15,10 @@ app.use("/v1", v1);
 v1.use("/user", userRouter);
 
 userRouter.post("", async (req, res) => {
-    const userPO: UserPO = req.body;
-    await UserModel.create(userPO)
-        .then((userVO) => {
-            res.status(201).json(userVO);
+    const userCreateReq: UserCreateReq = req.body;
+    await UserModel.create(userCreateReq)
+        .then((userPO) => {
+            res.status(201).json(toVO(userPO));
         })
         .catch((error) => {
             log.error(error);
