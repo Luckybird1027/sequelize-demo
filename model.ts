@@ -14,9 +14,9 @@ export interface UserPO extends Model<InferAttributes<UserPO>> {
 };
 
 /**
- * 用户请求
+ * 用户创建请求
  */
-export interface UsercreateReq extends Model<InferCreationAttributes<UserPO>> {
+export interface UserCreateReq extends Model<InferCreationAttributes<UserPO>> {
     username: string;
     password: string;
     email: string | null;
@@ -24,12 +24,21 @@ export interface UsercreateReq extends Model<InferCreationAttributes<UserPO>> {
 }
 
 /**
- * 用户请求
+ * 用户更新请求
  */
 export interface UserUpdateReq {
     username: string;
     email: string | null;
     telephone: string | null;
+}
+
+/**
+ * 用户查询请求
+ */
+export interface UserQueryReq {
+    username?: string | null;
+    email?: string | null;
+    telephone?: string | null;
 }
 
 /**
