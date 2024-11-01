@@ -50,3 +50,34 @@ userRouter.put("/:id", async (req, res) => {
             res.status(500).json({ error: "Internal Server Error" })
         })
 })
+
+userRouter.delete("/:id", async (req, res) => {
+    const id = req.params.id;
+    await UserModel.destroy({ where: { id } })
+        .then(() => res.status(204).end())
+        .catch((error) => {
+            log.error(error);
+            res.status(500).json({ error: "Internal Server Error" });
+        })
+});
+
+userRouter.get("/:id", async (req, res) => {
+    const id = req.params.id;
+    await UserModel.findByPk(id)
+        .then((userPO) => {
+            if (userPO) {
+                res.status(200).json({
+                    id: userPO.id,
+                    username: userPO.username,
+                    email: userPO.email,
+                    telephone: userPO.telephone
+                });
+            } else {
+                res.status(200).end();
+            }
+        })
+        .catch((error) => {
+            log.error(error);
+            res.status(500).json({ error: "Internal Server Error" });
+        })
+})
