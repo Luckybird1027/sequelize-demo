@@ -3,7 +3,7 @@ import { Sequelize, DataTypes, InferAttributes, InferCreationAttributes, Model }
 export const sequelizeInstance = new Sequelize("postgres://mimir:mimir-pwd@localhost:5432/test")
 
 export interface UserPO extends Model<InferAttributes<UserPO>, InferCreationAttributes<UserPO>> {
-    id: number;
+    id: undefined;
     username: string;
     email: string | null;
     telephone: string | null;
