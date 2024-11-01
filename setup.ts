@@ -81,3 +81,15 @@ userRouter.get("/:id", async (req, res) => {
             res.status(500).json({ error: "Internal Server Error" });
         })
 })
+
+userRouter.post("/batchGet", async (req, res) => {
+    const ids = req.body;
+    await UserModel.findAll({ where: { id: ids }, attributes: ["id", "username", "email", "telephone"] })
+        .then((userPOs) => {
+            res.status(200).json(userPOs);
+        })
+        .catch((error) => {
+            log.error(error);
+            res.status(500).json({ error: "Internal Server Error" });
+        })
+})
